@@ -47,6 +47,17 @@ body {
   animation: heartbeat 1.2s infinite ease-in-out, blinkGlow 1.2s infinite alternate;
 }
 
+/* Pengaturan titik poros rotasi saat hati terbelah */
+.heart-left {
+  transform-origin: 100px 175px;
+  animation: breakLeft 4.8s infinite ease-in-out;
+}
+
+.heart-right {
+  transform-origin: 100px 175px;
+  animation: breakRight 4.8s infinite ease-in-out;
+}
+
 /* Gelombang cahaya meluas dari belakang hati */
 .pulse-ring {
   position: absolute;
@@ -63,12 +74,50 @@ body {
   animation-delay: 1.2s;
 }
 
+/* Animasi siklus Patah Hati -> Utuh -> Patah Hati (Sisi Kiri) */
+@keyframes breakLeft {
+  0%, 30% {
+    transform: translate(0, 0) rotate(0deg); /* Utuh */
+  }
+  38% {
+    transform: translate(-18px, 6px) rotate(-13deg); /* Terbelah menjauh */
+  }
+  42% {
+    transform: translate(-14px, 4px) rotate(-10deg); /* Sedikit memantul */
+  }
+  46%, 72% {
+    transform: translate(-17px, 6px) rotate(-12deg); /* Bertahan patah hati */
+  }
+  84%, 100% {
+    transform: translate(0, 0) rotate(0deg); /* Menyatu utuh kembali */
+  }
+}
+
+/* Animasi siklus Patah Hati -> Utuh -> Patah Hati (Sisi Kanan) */
+@keyframes breakRight {
+  0%, 30% {
+    transform: translate(0, 0) rotate(0deg); /* Utuh */
+  }
+  38% {
+    transform: translate(18px, 6px) rotate(13deg); /* Terbelah menjauh */
+  }
+  42% {
+    transform: translate(14px, 4px) rotate(10deg); /* Sedikit memantul */
+  }
+  46%, 72% {
+    transform: translate(17px, 6px) rotate(12deg); /* Bertahan patah hati */
+  }
+  84%, 100% {
+    transform: translate(0, 0) rotate(0deg); /* Menyatu utuh kembali */
+  }
+}
+
 /* Animasi detak jantung (lub-dub) */
 @keyframes heartbeat {
   0%   { transform: scale(1); }
-  14%  { transform: scale(1.18); }
+  14%  { transform: scale(1.16); }
   28%  { transform: scale(1.03); }
-  42%  { transform: scale(1.24); }
+  42%  { transform: scale(1.22); }
   70%  { transform: scale(1); }
   100% { transform: scale(1); }
 }
