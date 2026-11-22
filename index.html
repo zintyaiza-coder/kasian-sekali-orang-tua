@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hati Kelap-Kelip Otomatis</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Kanvas partikel bintang berkilau -->
+  <canvas id="sparkle-canvas"></canvas>
+
+  <!-- Kontainer utama hati -->
+  <div class="heart-container" id="heart-wrapper">
+    <div class="pulse-ring"></div>
+    <div class="pulse-ring delay"></div>
+
+    <svg class="heart-svg" viewBox="0 0 200 185" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="heart-grad" cx="50%" cy="35%" r="65%">
+          <stop offset="0%" id="grad-stop-1" stop-color="#ff85a2" />
+          <stop offset="55%" id="grad-stop-2" stop-color="#ff1e56" />
+          <stop offset="100%" id="grad-stop-3" stop-color="#8a0022" />
+        </radialGradient>
+      </defs>
+      
+      <!-- Bentuk Hati -->
+      <path class="heart-path" 
+            d="M100 175 C100 175 15 120 15 62 C15 30 40 10 66 10 C83 10 95 20 100 32 C105 20 117 10 134 10 C160 10 185 30 185 62 C185 120 100 175 100 175 Z" 
+            fill="url(#heart-grad)" />
+      
+      <!-- Kilau cahaya di bagian atas kiri hati -->
+      <path d="M42 42 C48 28 64 25 74 30" 
+            stroke="rgba(255,255,255,0.65)" 
+            stroke-width="5" 
+            stroke-linecap="round" 
+            fill="none" />
+    </svg>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
