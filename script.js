@@ -8,9 +8,8 @@ const stop3 = document.getElementById('grad-stop-3');
 
 let width, height;
 let particles = [];
-let hue = 340; // Mulai dari warna merah muda/merah
+let hue = 340;
 
-// Sesuaikan ukuran kanvas dengan layar
 function resizeCanvas() {
   width = canvas.width = window.innerWidth;
   height = canvas.height = window.innerHeight;
@@ -18,7 +17,6 @@ function resizeCanvas() {
 window.addEventListener('resize', resizeCanvas);
 resizeCanvas();
 
-// Kelas Partikel Kelap-Kelip
 class Sparkle {
   constructor(x, y, isBurst = false) {
     this.x = x ?? Math.random() * width;
@@ -45,7 +43,6 @@ class Sparkle {
       if (this.alpha >= 1 || this.alpha <= 0.1) {
         this.blinkSpeed *= -1;
       }
-      // Kembalikan partikel jika keluar layar
       if (this.y < 0) this.y = height;
       if (this.x < 0) this.x = width;
       if (this.x > width) this.x = 0;
@@ -59,7 +56,6 @@ class Sparkle {
     ctx.shadowBlur = 10;
     ctx.shadowColor = `hsl(${this.particleHue}, 100%, 60%)`;
 
-    // Gambar bentuk bintang 4 sudut
     ctx.beginPath();
     ctx.moveTo(this.x, this.y - this.size * 2);
     ctx.quadraticCurveTo(this.x, this.y, this.x + this.size * 2, this.y);
@@ -71,7 +67,6 @@ class Sparkle {
   }
 }
 
-// Buat partikel latar belakang awal
 for (let i = 0; i < 70; i++) {
   particles.push(new Sparkle());
 }
@@ -83,11 +78,20 @@ heartWrapper.addEventListener('click', (e) => {
   }
 });
 
-// Fungsi utama untuk mengubah warna otomatis & animasi partikel
+// Otomatis memunculkan percikan kilau saat momen hati retak/terbelah
+setInterval(() => {
+  const rect = heartWrapper.getBoundingClientRect();
+  const centerX = rect.left + rect.width / 2;
+  const centerY = rect.top + rect.height / 2;
+  for (let i = 0; i < 12; i++) {
+    particles.push(new Sparkle(centerX, centerY, true));
+  }
+}, 4800);
+
 function animate() {
   ctx.clearRect(0, 0, width, height);
 
-  // Putar spektrum warna (Hue 0 - 360) secara otomatis
+  // Putar warna otomatis secara terus-menerus
   hue = (hue + 0.6) % 360;
 
   const lightColor = `hsl(${hue}, 100%, 78%)`;
@@ -95,7 +99,6 @@ function animate() {
   const darkColor  = `hsl(${hue}, 100%, 28%)`;
   const softGlow   = `hsla(${hue}, 100%, 55%, 0.55)`;
 
-  // Terapkan warna ke gradien hati & variabel CSS
   stop1.setAttribute('stop-color', lightColor);
   stop2.setAttribute('stop-color', mainColor);
   stop3.setAttribute('stop-color', darkColor);
@@ -103,7 +106,6 @@ function animate() {
   document.documentElement.style.setProperty('--glow-color', mainColor);
   document.documentElement.style.setProperty('--glow-soft', softGlow);
 
-  // Render dan perbarui semua partikel
   for (let i = particles.length - 1; i >= 0; i--) {
     particles[i].update();
     particles[i].draw();
